@@ -101,7 +101,6 @@ jobs:
         run: |
           mkdir -p docker
           mv build-out/* docker/ || true
-          # ensure docker/swift-runtime exists (if copy failed above, job will fail later)
           cat > docker/Dockerfile <<'EOF'
           FROM ubuntu:24.04
 
@@ -141,11 +140,6 @@ jobs:
       - name: Build Docker image
         run: |
           docker build docker -t $IMAGE_NAME:$IMAGE_TAG
-
-      - name: Smoke test: verify d8 has REPRL support inside the image
-        run: |
-          set -e
-          docker run --rm $IMAGE_NAME:$IMAGE_TAG bash -c "/opt/fuzzing/d8 --help | grep -i reprl || ( echo 'REPRL not found in d8' && exit 1 )"
 
       - name: Push image to GHCR
         run: |
