@@ -87,7 +87,7 @@ jobs:
           cd fuzzilli
           swift build -c release
           mkdir -p ../build-out
-          cp .build/release/Fuzzilli ../build-out/Fuzzilli
+          cp .build/release/FuzzilliCli ../build-out/Fuzzilli
           ls -l ../build-out/Fuzzilli || true
 
       - name: Copy Swift runtime into build-out (to embed in image)
